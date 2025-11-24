@@ -6,14 +6,21 @@ import java.util.Scanner;
 
 //Excepción propia
 class GordoException extends Exception {
-	//COMPLETAR
+	
+	public GordoException(String mensaje) {
+		   super(mensaje);
+		}
+	//COMPLETAR Ana Uribe
 }
 
 public class LoteriaEquipo1 {	
-	
 	//devuelve un array de tamaño numBolas con todos los números del sorteo
 	public static int[] creaBomboNumeros(int numBolas) {
-		//COMPLETAR
+		int [] numerosBolas = new int [99999];
+		return numerosBolas;
+		
+		
+		//COMPLETAR Rocío Cortés
 	}
 	
 	//devuelve un array de tamaño numPremios con todos los premios del sorteo
@@ -22,14 +29,28 @@ public class LoteriaEquipo1 {
 		
 		bomboPremios[0]="PRIMER PREMIO";  // gordo de navidad
 		bomboPremios[1]="SEGUNDO PREMIO";	// un segundo premio
+		bomboPremios[2]="TERCER PREMIO";
 		
-		//COMPLETAR
+		bomboPremios[3]="CUARTO PREMIO";
+		bomboPremios[4]="CUARTO PREMIO";
+		
+		bomboPremios[5]="QUINTO PREMIO";
+		bomboPremios[6]="QUINTO PREMIO";
+		bomboPremios[7]="QUINTO PREMIO";
+		bomboPremios[8]="QUINTO PREMIO";
+		bomboPremios[9]="QUINTO PREMIO";
+		bomboPremios[10]="QUINTO PREMIO";
+		bomboPremios[11]="QUINTO PREMIO";
+		bomboPremios[12]="QUINTO PREMIO";
+		
+		for (int i = 12; i < bomboPremios.length; i++) {
+			bomboPremios[i]="pedrea";
+		}
+		//COMPLETAR Ana Uribe
 		
 		// un tercer premio
 		// dos cuartos premios
-
 		// 8 quintos premios
-
 		// el resto hasta completar 1.807 premios son "pedrea"
 		
 		System.out.println("Bombo de premios creado...");
@@ -41,27 +62,44 @@ public class LoteriaEquipo1 {
 	public static int dameNumero(int[] bombo) {
 		
 		int numAgraciado = (int) (Math.random()*bombo.length);
-
 		// si el número ya había salido, generamos otro al azar
-
+		
 		//COMPLETAR
 		
+		for (int i = 0; i < bombo.length; i++) {
+		if(bombo[i]!=-1) {
+			bombo[i]=numAgraciado;
+			bombo[numAgraciado]=-1;}
+			
+		}
 		// marcamos el número que ha salido con -1 para que no vuelva a salir
-		bombo[numAgraciado]=-1;
-		
-		//COMPLETAR
+		return numAgraciado;
+		//COMPLETAR Ana Uribe
 	}
+
 	
 	//devuelve un premio al azar del bombo de premios
 	//Si un premio ya ha salido, no debe volver a salir
 	public static String damePremio(String[] bombo) {
 		
 		String premio;
+		int [] salidos = new int [bombo.length];
 		
 		int indicePremiado = (int) (Math.random()*bombo.length);
 
+		
+		
+		if (bombo[indicePremiado] != "nada") {
+			premio = bombo[indicePremiado];
+			bombo[indicePremiado] = "nada";
+			}
+		else {
+			while(bombo[indicePremiado].equals("nada")) {
+				indicePremiado = (int) (Math.random()*bombo.length);}
+				premio = bombo[indicePremiado];
+		}
 		// si el premio ya había salido, generamos otro al azar
-		//COMPLETAR
+		//COMPLETAR Rocío Cortés
 		
 		// marcamos el premio que ha salido 
 		//COMPLETAR
@@ -71,15 +109,32 @@ public class LoteriaEquipo1 {
 	
 	
 	//Comprueba si un décimo ha sido agraciado y en tal caso indica por consola el premio
-	//Ejemplo: "Agraciado con: pedrea"
-	public static String heSidoAgraciado(String[] numerosSorteo, String[] premiosSorteo, String miDecimo){
-		String premio="Número no premiado"; //valor por defecto
+		//Ejemplo: "Agraciado con: pedrea"
+		public static String heSidoAgraciado(String[] numerosSorteo, String[] premiosSorteo, String miDecimo){
+			String premio="Número no premiado"; //valor por defecto
+			boolean esPremiado=false;
+			int j =0;
+			for (int i = 0; i < numerosSorteo.length; i++) {
+				if (numerosSorteo.equals(miDecimo)&&premiosSorteo[j]!="nada") {
+					esPremiado=true;
+				}
+				j++;
+			}
 			
-		//COMPLETAR
+			if ( esPremiado ==true) {
+				System.out.println();
+			}
+			
+			return premio;
+			
+			//COMPLETAR Ana Uribe
+		}
 
-	}
+
+
+
 	
-	
+
 	//Implementa un bucle para comprobar, haciendo uso del método heSidoAgraciado, si nuestro décimo tiene o no premio
 	// Debe comprobar que se introducen exactamente 5 dígitos entre el 0 y el 9, por ejemplo 04544
 	// Al introducir fin, finaliza la comprobación de décimos
@@ -92,8 +147,25 @@ public class LoteriaEquipo1 {
 		
 		System.out.println("\nCOMPROBACION DE DECIMOS:");
 		
+		while (!terminarDeComprobar) {
+			System.out.println("\nIntroduxca los 5 digitos de su décimo (fin para terminar)");
+			miDecimo = sc.next().toLowerCase();
+			
+			if(miDecimo.equals("fin")) {
+				terminarDeComprobar = true;
+			}
+			else if (miDecimo.length() != 5) {
+				System.out.println("Formato incorrecto");
+			}
+			else if (premiosSorteo.equals("PRIMER PREMIO")) {
+				throw new GordoException ("¡¡A celebrar, te ha tocado el Gordo!!");
+			}
+			
+		}	
+			
+		
 		//Compruebo si me ha tocado la lotería
-		//COMPLETAR
+		//COMPLETAR Rocío
 		
 	}
 				
@@ -135,6 +207,8 @@ public class LoteriaEquipo1 {
 				listaNumerosSorteo[j]=numeroFormateado;
 				
 				//Añado el premio a la lista oficial del sorteo en la posición j
+				listaPremiosSorteo[j] = premio;
+				
 				//COMPLETAR
 				
 				j++;
@@ -145,12 +219,18 @@ public class LoteriaEquipo1 {
 			compruebaDecimos(listaNumerosSorteo, listaPremiosSorteo);
 				
 			
-		} 	//COMPLETAR (capturar excepción propia)
+		} 	//COMPLETAR (capturar excepción propia) Ana Uribe
 		
-		catch (Exception e) {
+		
+		
+		catch (GordoException e) {
+		         System.out.println(e.getMessage());
+			}catch (Exception e) {
 				System.out.println("Error:"+e.getMessage());
-				} finally {
-					System.out.println("\nSorteo finalizado");			
-				}		
+			} finally {
+				System.out.println("\nSorteo finalizado");			
+			}	
 	}
+	
+	
 }
