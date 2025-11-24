@@ -1,0 +1,22 @@
+package ud2.ejemplos;
+
+public class Ejemplo2 {
+	public static void main(String[] args) {
+		int c;
+		int a = 1;
+		int b = 0;
+		
+		try{
+			c = a/b;
+		}catch(ArithmeticException e) {
+			System.out.println("¡No se puede dividir por cero!");
+			
+		}catch (Exception e) {
+			System.out.println("Error desconocido");
+		}
+			
+		System.out.println("¿Llega aquí?");
+		
+	}
+
+}
